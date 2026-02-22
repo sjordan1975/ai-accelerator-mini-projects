@@ -45,7 +45,12 @@ cd mini-project-1
 python data_generator.py  # Generates data/synthetic_data.json (20 samples)
 ```
 
-### Phase 2-5: Coming Soon
+### Phase 2: Validation ✅
+```bash
+python validator.py  # Validates structure, creates data/validated_data.json
+```
+
+### Phase 3-5: Coming Soon
 Instructions will be added as phases are completed.
 
 ---
