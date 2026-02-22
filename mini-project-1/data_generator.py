@@ -179,7 +179,18 @@ def generate_repair_qa(category: str) -> RepairQA:
                     "content": prompt
                 }
             ],
-            temperature=0.8,  # Higher temperature for diverse, creative responses
+            # Temperature: Controls randomness in LLM responses
+            # Range: 0.0-2.0 (though 0.0-1.0 is most commonly used)
+            # 0.0 = Deterministic (same input → same output)
+            # 0.3 = Focused, consistent responses
+            # 0.7-1.0 = Creative, diverse responses (ideal for synthetic data)
+            # >1.0 = Very random, rarely used (can be incoherent)
+            # We use 0.8 for varied but coherent synthetic data
+            temperature=0.8,
+            
+            # Max Tokens: Limits the maximum length of the LLM's response
+            # 1 token ≈ 4 characters or 0.75 words
+            # 1000 tokens ≈ 750 words, sufficient for detailed repair instructions
             max_tokens=1000
         )
         
@@ -223,7 +234,7 @@ def generate_dataset(num_samples: int = 20, seed: int = 42) -> List[RepairQA]:
     print(f"Categories: {', '.join(categories)}\n")
     
     for i in range(num_samples):
-        # Randomly select a category for diversity
+        # Randomly select a category for diversity; note use random -- Python's built-in random module
         category = random.choice(categories)
         
         print(f"Sample {i+1}/{num_samples}: Generating {category}...")
