@@ -55,8 +55,13 @@ python validator.py  # Validates structure, creates data/validated_data.json
 python labeler.py  # LLM-assisted labeling, creates data/labeled_data.csv
 ```
 
-### Phase 4-5: Coming Soon
-Instructions will be added as phases are completed.
+### Phase 4: Analysis & Heatmap ✅
+```bash
+python analyzer.py  # Generate heatmap and analysis report
+```
+
+### Phase 5: Coming Soon
+Instructions will be added as phase is completed.
 
 ---
 
