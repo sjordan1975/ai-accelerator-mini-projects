@@ -55,3 +55,4 @@ wheels/
 !**/outputs/.gitkeep
 !**/outputs/example_*.png
 !**/outputs/example_*.json
+!**/outputs/example_*.txt
