@@ -60,8 +60,12 @@ python labeler.py  # LLM-assisted labeling, creates data/labeled_data.csv
 python analyzer.py  # Generate heatmap and analysis report
 ```
 
-### Phase 5: Coming Soon
-Instructions will be added as phase is completed.
+### Phase 5: Prompt Refinement ⏸️
+```bash
+python refiner.py  # Analyze, refine, regenerate, compare (requires API access)
+```
+
+**Note:** Phase 5 requires additional API calls for labeling. If you hit rate limits, the script will partially complete and can be re-run when API access resets.
 
 ---
 
@@ -157,7 +161,7 @@ This diverse template approach ensures the synthetic data covers the full spectr
    - Receive structured JSON response
    - Store in list
 
-**Output:** `synthetic_data.json` - 20 Q&A pairs with all 7 fields
+**Output:** `data/synthetic_data.json` - 20 Q&A pairs with all 7 fields
 
 ### Phase 2: Validation (Structural Quality Check)
 **Input:** 20 generated samples from Phase 1
@@ -166,7 +170,7 @@ This diverse template approach ensures the synthetic data covers the full spectr
 1. Pydantic validation: Check all 7 fields present, verify data types, ensure non-empty values
 2. Filter invalid entries and log validation errors
 
-**Output:** `validated_data.json` - Only structurally valid samples, `validation_report.txt`
+**Output:** `data/validated_data.json` - Only structurally valid samples, `outputs/validation_report.txt`
 
 ### Phase 3: Failure Labeling (Quality Assessment)
 **Input:** Validated samples from Phase 2
@@ -184,7 +188,7 @@ This diverse template approach ensures the synthetic data covers the full spectr
      - `poor_quality_tips`
 2. Labeling strategy: Manual review OR LLM-assisted auto-labeling
 
-**Output:** `labeled_data.csv` - DataFrame with failure labels, baseline failure rate
+**Output:** `data/labeled_data.csv` - DataFrame with failure labels, baseline failure rate
 
 ### Phase 4: Analysis (Pattern Discovery)
 **Input:** Labeled DataFrame from Phase 3
@@ -194,18 +198,39 @@ This diverse template approach ensures the synthetic data covers the full spectr
 2. Create heatmap: Rows=20 samples, Columns=6 failure modes, Colors=Red (failure)/Green (success)
 3. Identify patterns: Most common failure types, correlations, which repair categories have most failures
 
-**Output:** `failure_heatmap.png`, `analysis_report.json`, insights on which templates need refinement
+**Output:** `outputs/failure_heatmap.png`, `outputs/analysis_report.json`, insights on which templates need refinement
 
 ### Phase 5: Refinement (Iterative Improvement)
 **Input:** Analysis insights from Phase 4, original 5 prompt templates
+
+**What Phase 5 Accomplishes:**
+
+**1. Data-Driven Prompt Engineering**
+- Instead of guessing what to improve, Phase 4 analysis provides concrete insights:
+  - Which failure modes are most common
+  - Which repair categories have issues
+  - Specific samples that failed
+- This guides targeted refinement:
+  - High `incomplete_answer` rate → Add "provide step-by-step details" to prompts
+  - High `safety_violations` → Strengthen "include critical safety warnings"
+  - High `unrealistic_tools` → Emphasize "homeowner-accessible tools only"
+  - High `overcomplicated_solution` → Add "appropriate for DIY skill level"
+  - High `missing_context` → Specify "include material specs and measurements"
+  - High `poor_quality_tips` → Request "specific, actionable tips"
+
+**2. Measure Improvement**
+- Prove refinement works through metrics:
+  - **Before:** Baseline failure rate from Phase 4
+  - **After:** New failure rate with refined prompts
+  - **Improvement:** Calculate reduction percentage (Goal: >80%)
 
 **Process:**
 1. Identify problem templates (highest failure rates, most common failure modes)
 2. Refine prompts: Add explicit instructions, strengthen safety emphasis, clarify tool requirements, add examples
 3. Regenerate data: Use refined templates, generate new 20 samples, re-validate and re-label
-4. Compare results: Calculate new failure rate, measure improvement percentage
+4. Compare results: Calculate new failure rate, measure improvement percentage against baseline
 
-**Output:** `refined_templates.py`, `refined_data.csv`, success metric
+**Output:** `outputs/refinement_report.json`, success metric
 
 ---
 
