@@ -50,7 +50,12 @@ python data_generator.py  # Generates data/synthetic_data.json (20 samples)
 python validator.py  # Validates structure, creates data/validated_data.json
 ```
 
-### Phase 3-5: Coming Soon
+### Phase 3: Failure Mode Labeling ✅
+```bash
+python labeler.py  # LLM-assisted labeling, creates data/labeled_data.csv
+```
+
+### Phase 4-5: Coming Soon
 Instructions will be added as phases are completed.
 
 ---
