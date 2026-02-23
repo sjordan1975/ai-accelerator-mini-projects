@@ -2,7 +2,7 @@
 
 ## Learning Journey: From Generation to Refinement
 
-This project demonstrates the complete lifecycle of data-driven prompt engineering. Each phase builds on the previous, teaching you to think like a data scientist:
+This project demonstrates the complete lifecycle of data-driven prompt engineering. Each phase builds on the previous, teaching you to think like an AI Engineer:
 
 - **Phase 1:** Learn to generate structured synthetic data with LLMs
 - **Phase 2:** Discover the importance of validation and quality control  
