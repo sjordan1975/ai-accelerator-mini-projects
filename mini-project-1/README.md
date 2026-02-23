@@ -57,40 +57,31 @@ cp .env.example .env.local
 
 ## Running the Project
 
-> **Note:** Full instructions will be added after all phases are complete.
+**Note:** Run all commands from the `mini-projects/mini-project-1` directory and in the order specified.
 
 ### Phase 1: Data Generation ✅
-**Goal:** Generate meaningful synthetic repair Q&A data
-**Learning:** Master structured LLM outputs with Instructor + Pydantic
+
 ```bash
 cd mini-project-1
 python data_generator.py  # Generates data/synthetic_data.json (20 samples)
 ```
 
 ### Phase 2: Validation ✅
-**Goal:** Ensure all generated data meets structural quality standards
-**Learning:** Discover why validation is crucial and how Pydantic saves you from bad data
 ```bash
 python validator.py  # Validates structure, creates data/validated_data.json
 ```
 
 ### Phase 3: Failure Mode Labeling ✅
-**Goal:** Assess data quality using LLM-as-Judge methodology
-**Learning:** Explore LLM-as-Judge methodology for consistent quality assessment
 ```bash
 python labeler.py  # LLM-assisted labeling, creates data/labeled_data.csv
 ```
 
 ### Phase 4: Analysis & Heatmap ✅
-**Goal:** Identify patterns and visualize failure modes
-**Learning:** Master pattern analysis and data visualization with Pandas + Seaborn
 ```bash
 python analyzer.py  # Generate heatmap and analysis report
 ```
 
 ### Phase 5: Prompt Refinement ⏸️
-**Goal:** Prove iterative improvement through data-driven refinement
-**Learning:** Apply iterative improvement - the core of production ML engineering
 ```bash
 python refiner.py  # Analyze, refine, regenerate, compare (requires API access)
 ```
@@ -178,7 +169,13 @@ This diverse template approach ensures the synthetic data covers the full spectr
 ## End-to-End Project Flow
 
 ### Phase 1: Generation (Initial Data Creation)
+**Goal:** Generate meaningful synthetic repair Q&A data
+
+**Learning:** Master structured LLM outputs with Instructor + Pydantic
+
 **Input:** 5 prompt templates, target 20 samples
+
+**Output:** `data/synthetic_data.json` - 20 Q&A pairs with all 7 fields
 
 **Process:**
 1. Define Pydantic Model for 7-field JSON structure
@@ -189,19 +186,27 @@ This diverse template approach ensures the synthetic data covers the full spectr
    - Receive structured JSON response
    - Store in list
 
-**Output:** `data/synthetic_data.json` - 20 Q&A pairs with all 7 fields
-
 ### Phase 2: Validation (Structural Quality Check)
+**Goal:** Ensure all generated data meets structural quality standards
+
+**Learning:** Discover why validation is crucial and how Pydantic saves you from bad data
+
 **Input:** 20 generated samples from Phase 1
+
+**Output:** `data/validated_data.json` - Only structurally valid samples, `outputs/validation_report.txt`
 
 **Process:**
 1. Pydantic validation: Check all 7 fields present, verify data types, ensure non-empty values
 2. Filter invalid entries and log validation errors
 
-**Output:** `data/validated_data.json` - Only structurally valid samples, `outputs/validation_report.txt`
-
 ### Phase 3: Failure Labeling (Quality Assessment)
+**Goal:** Assess data quality using LLM-as-Judge methodology
+
+**Learning:** Explore LLM-as-Judge methodology for consistent quality assessment
+
 **Input:** Validated samples from Phase 2
+
+**Output:** `data/labeled_data.csv` - DataFrame with failure labels, baseline failure rate
 
 **Process:**
 1. Create Pandas DataFrame with columns:
@@ -216,20 +221,29 @@ This diverse template approach ensures the synthetic data covers the full spectr
      - `poor_quality_tips`
 2. Labeling strategy: Manual review OR LLM-assisted auto-labeling
 
-**Output:** `data/labeled_data.csv` - DataFrame with failure labels, baseline failure rate
-
 ### Phase 4: Analysis (Pattern Discovery)
+**Goal:** Identify patterns and visualize failure modes
+
+**Learning:** Master pattern analysis and data visualization with Pandas + Seaborn
+
 **Input:** Labeled DataFrame from Phase 3
+
+**Output:** `outputs/failure_heatmap.png`, `outputs/analysis_report.json`, insights on which templates need refinement
 
 **Process:**
 1. Calculate metrics: Total failure rate per mode, failure rate by repair category, overall quality score
 2. Create heatmap: Rows=20 samples, Columns=6 failure modes, Colors=Red (failure)/Green (success)
 3. Identify patterns: Most common failure types, correlations, which repair categories have most failures
 
-**Output:** `outputs/failure_heatmap.png`, `outputs/analysis_report.json`, insights on which templates need refinement
 
 ### Phase 5: Refinement (Iterative Improvement)
+**Goal:** Prove iterative improvement through data-driven refinement
+
+**Learning:** Apply iterative improvement - the core of production ML engineering
+
 **Input:** Analysis insights from Phase 4, original 5 prompt templates
+
+**Output:** `outputs/refinement_report.json`, success metric
 
 **What Phase 5 Accomplishes:**
 
@@ -257,8 +271,6 @@ This diverse template approach ensures the synthetic data covers the full spectr
 2. Refine prompts: Add explicit instructions, strengthen safety emphasis, clarify tool requirements, add examples
 3. Regenerate data: Use refined templates, generate new 20 samples, re-validate and re-label
 4. Compare results: Calculate new failure rate, measure improvement percentage against baseline
-
-**Output:** `outputs/refinement_report.json`, success metric
 
 ---
 
