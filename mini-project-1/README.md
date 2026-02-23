@@ -267,7 +267,7 @@ This diverse template approach ensures the synthetic data covers the full spectr
 ```
 mini-project-1/
 ├── models.py                  # Pydantic models (RepairQA schema)
-├── data_generator.py          # Phase 1: Generation code
+├── data_generator.py          # Phase 1: Generation (contains PROMPT_TEMPLATES)
 ├── validator.py               # Phase 2: Validation logic
 ├── labeler.py                 # Phase 3: Failure labeling
 ├── analyzer.py                # Phase 4: Analysis & heatmap
@@ -275,12 +275,14 @@ mini-project-1/
 ├── data/
 │   ├── synthetic_data.json    # Initial 20 samples
 │   ├── validated_data.json    # Structurally valid samples
-│   └── labeled_data.csv       # With failure labels
+│   ├── labeled_data.csv       # With failure labels
+│   ├── refined_data.json      # Phase 5: Refined 20 samples
+│   └── refined_labeled_data.csv # Phase 5: Refined with labels
 ├── outputs/
-│   ├── failure_heatmap.png    # Visual analysis
-│   ├── analysis_report.json   # Detailed metrics
-│   └── final_results.json     # Success metrics
-├── refined_templates.py       # Improved prompts (Phase 5)
+│   ├── validation_report.txt  # Phase 2: Validation summary
+│   ├── failure_heatmap.png    # Phase 4: Visual analysis
+│   ├── analysis_report.json   # Phase 4: Detailed metrics
+│   └── refinement_report.json # Phase 5: Before/after comparison
 └── README.md                  # Project documentation
 ```
 
@@ -293,6 +295,38 @@ mini-project-1/
 - **LLM-as-Judge** provides consistent, scalable quality assessment
 - **Iterative refinement** is the core of production ML engineering workflows
 - **Data-driven decisions** beat intuition every time
+
+---
+
+## Real-World Refinement Workflow
+
+**Note:** Our 0% baseline failure rate represents an ideal scenario. In practice, most initial prompt templates achieve 30-60% failure rates and require systematic refinement.
+
+**Typical Real-World Workflow:**
+
+1. **Phase 1-4:** Initial templates generate data with 40% failure rate
+2. **Phase 5 Analysis:** Identify high-frequency failure modes:
+   - `incomplete_answer`: 25% → Add "step-by-step details" to prompts
+   - `safety_violations`: 10% → Strengthen safety warnings
+   - `unrealistic_tools`: 5% → Specify homeowner-accessible tools
+
+3. **Template Refactoring:**
+   - Extract `PROMPT_TEMPLATES` from `data_generator.py` to `data/original_templates.py`
+   - Create `data/refined_templates.py` with targeted improvements
+   - Update `data_generator.py` to load from template files
+
+4. **Regeneration & Comparison:**
+   - Generate new data with refined templates
+   - Expect 70-90% reduction in targeted failure modes
+   - Achieve overall <10% failure rate
+
+**Why Refinement is Usually Required:**
+- **Complex domains** (like home repair) have many edge cases
+- **LLM interpretation** varies across different models and temperatures
+- **User needs** evolve as you understand the problem better
+- **Quality standards** tighten as systems move to production
+
+**Our Learning Value:** While our templates achieved 0% failure rate (demonstrating excellent prompt design), the Phase 5 framework and methodology are production-ready for real-world refinement scenarios.
 
 ---
 
