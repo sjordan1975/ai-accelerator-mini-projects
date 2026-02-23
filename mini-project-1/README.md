@@ -32,7 +32,7 @@ This isn't just about generating data - it's about learning the systematic appro
 - **Seaborn** - Heatmap visualization for failure pattern analysis
 - **OpenAI** - LLM interaction for synthetic data generation
 
-# Note: Seaborn automatically installs matplotlib as dependency
+**Note:** Seaborn automatically installs matplotlib as dependency
 
 ### Installation
 ```bash
