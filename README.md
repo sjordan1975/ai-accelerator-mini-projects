@@ -71,7 +71,7 @@ mini-project-X/
 
 ### Initial Setup (One-time)
 ```bash
-cd /Users/sjordan/projects/AI_Accelerator/mini-projects
+cd ./mini-projects
 python -m venv .venv
 source .venv/bin/activate
 ```
@@ -93,12 +93,12 @@ cp .env.example .env.local
 
 ### Activate Environment (Each session)
 ```bash
-source /Users/sjordan/projects/AI_Accelerator/mini-projects/.venv/bin/activate
+source ./mini-projects/.venv/bin/activate
 ```
 
 ### IDE Python Interpreter Path
 ```
-/Users/sjordan/projects/AI_Accelerator/mini-projects/.venv/bin/python
+./mini-projects/.venv/bin/python
 ```
 
 ### Common Dependencies
