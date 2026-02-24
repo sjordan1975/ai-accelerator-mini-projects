@@ -56,3 +56,6 @@ wheels/
 !**/outputs/example_*.png
 !**/outputs/example_*.json
 !**/outputs/example_*.txt
+
+# Private documentation
+_README.md
